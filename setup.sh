@@ -31,3 +31,28 @@ else
     echo "Ansible is not working. Check the error and try again."
     exit 1
 fi
+
+# Run the playbook
+ansible-playbook machine_setup_playbook.yml
+
+# Symbolic link to the dotfiles
+# create .config folder if it does not exist
+if [ -d ~/.config ]
+then
+    echo ".config folder already exists. Skipping..."
+else
+    echo ".config folder does not exist. Creating..."
+    mkdir -p ~/.config
+fi
+
+# Alacritty
+# Check if Alacitty config file exists
+if [ -f ~/.config/alacritty/alacritty.toml ]
+then
+    echo "Alacritty config file already exists. Skipping..."
+else
+    echo "Alacritty config file does not exist. Creating..."
+    mkdir -p ~/.config/alacritty
+    # create a symlink from current folder, dotfiles/alacritty/alacritty.toml to ~/.config/alacritty/alacritty.toml
+    ln -s $(pwd)/dotfiles/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+fi
