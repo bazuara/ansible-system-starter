@@ -19,14 +19,15 @@ then
 else
     echo "Ansible is already installed. Proceeding..."
 fi
-# Create ansible folders and inventory with localhost if they don't exist
-if [ ! -d "/etc/ansible" ]
+
+# Load ANSIBLE_CONFIG variable so when runing ansible from this script loads local ansible.cfg file
+export ANSIBLE_CONFIG=./ansible.cfg
+
+# Check trough a ping to localhost if ansible is working, else finish the script
+if ansible localhost -m ping
 then
-    echo "Creating ansible folders and inventory..."
-    mkdir -p /etc/ansible
-    touch /etc/ansible/hosts
-    echo "[servers]" >> /etc/ansible/hosts
-    echo "localhost ansible_connection=local" >> /etc/ansible/hosts
+    echo "Ansible is working. Proceeding..."
 else
-    echo "Ansible folders and inventory already exist. Proceeding..."
+    echo "Ansible is not working. Check the error and try again."
+    exit 1
 fi
