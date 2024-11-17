@@ -6,6 +6,8 @@ if ! command -v brew &> /dev/null
 then
     echo "Brew is not installed. Installing Brew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.zshrc
+    source ~/.zshrc
 else
     echo "Brew is already installed. Proceeding..."
 fi
