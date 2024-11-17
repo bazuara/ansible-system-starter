@@ -104,3 +104,35 @@
     - name: Add Telegram to the Dock if not present
       shell: dockutil --add "/Applications/Telegram.app"
       when: telegram_present_on_dock.rc != 0
+
+    - name: Check if Oh My Zsh is already installed
+      shell: test -d ~/.oh-my-zsh
+      register: ohmyzsh_installed
+      ignore_errors: true
+
+    - name: Download Oh My Zsh installation script
+      get_url:
+        url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+        dest: /tmp/install_ohmyzsh.sh
+      when: ohmyzsh_installed.rc != 0
+
+    - name: Run Oh My Zsh installation script
+      command: sh /tmp/install_ohmyzsh.sh --unattended
+      register: ohmyzsh_result
+      failed_when: "'FAILED' in ohmyzsh_result.stderr"
+      when: ohmyzsh_installed.rc != 0
+
+    - name: install ComicShannsMono Nerd Font from cask
+      homebrew_cask:
+        name: font-comic-shanns-mono-nerd-font
+        state: present
+
+    - name: Install zsh-you-should-use plugin
+      git:
+        repo: https://github.com/MichaelAquilina/zsh-you-should-use.git
+        dest: ~/.oh-my-zsh/custom/plugins/you-should-use
+
+    - name: Install zsh-autosuggestions plugin
+      git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
