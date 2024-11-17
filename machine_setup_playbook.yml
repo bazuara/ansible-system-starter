@@ -1,0 +1,106 @@
+---
+- name: Install Alacritty via Homebrew
+  hosts: localhost
+  become: false
+
+  tasks:
+    - name: Install Dockutil
+      homebrew:
+        name: dockutil
+        state: present
+
+    - name: Install Alacritty
+      homebrew:
+        name: alacritty
+        state: present
+
+    - name: Check if Alacritty is already in the Dock
+      shell: dockutil --list | grep -q "/Applications/Alacritty.app"
+      register: alacritty_present_on_dock
+      ignore_errors: true
+
+    - name: Add Alacritty to the Dock if not present
+      shell: dockutil --add "/Applications/Alacritty.app"
+      when: alacritty_present_on_dock.rc != 0
+
+
+
+    - name: Install Visual Studio Code
+      homebrew:
+        name: visual-studio-code
+        state: present
+    
+    - name: Check if Visual Studio Code is already in the Dock
+      shell: dockutil --list | grep -q "/Applications/Visual%20Studio%20Code.app/"
+      register: vscode_present_on_dock
+      ignore_errors: true
+
+    - name: Add Visual Studio Code to the Dock if not present
+      shell: dockutil --add "/Applications/Visual Studio Code.app"
+      when: vscode_present_on_dock.rc != 0
+
+    - name: Install Docker
+      homebrew:
+        name: docker
+        state: present
+
+    - name: Install Postman
+      homebrew:
+        name: postman
+        state: present
+    
+    - name: Check if Postman is already in the Dock
+      shell: dockutil --list | grep -q "Postman.app"
+      register: postman_present_on_dock
+      ignore_errors: true
+
+    - name: Add Postman to the Dock if not present
+      shell: dockutil --add "/Applications/Postman.app"
+      when: postman_present_on_dock.rc != 0
+
+    - name: Install Slack
+      homebrew:
+        name: slack
+        state: present
+
+    - name: Check if Slack is already in the Dock
+      shell: dockutil --list | grep -q "Slack.app"
+      register: slack_present_on_dock
+      ignore_errors: true
+
+    - name: Add Slack to the Dock if not present
+      shell: dockutil --add "/Applications/Slack.app"
+      when: slack_present_on_dock.rc != 0
+    
+    - name: Install Google Chrome
+      homebrew:
+        name: google-chrome
+        state: present
+
+    - name: Check if Google Chrome is already in the Dock
+      shell: dockutil --list | grep -q "Chrome.app"
+      register: chrome_present_on_dock
+      ignore_errors: true
+
+    - name: Add Google Chrome to the Dock if not present
+      shell: dockutil --add "/Applications/Google Chrome.app"
+      when: chrome_present_on_dock.rc != 0
+
+    - name: Install Firefox Developer Edition from cask
+      homebrew_cask:
+        name: firefox@developer-edition
+        state: present
+
+    - name: Install Telegram from cask
+      homebrew_cask:
+        name: telegram
+        state: present
+
+    - name: Check if Telegram is already in the Dock
+      shell: dockutil --list | grep -q "Telegram.app"
+      register: telegram_present_on_dock
+      ignore_errors: true
+
+    - name: Add Telegram to the Dock if not present
+      shell: dockutil --add "/Applications/Telegram.app"
+      when: telegram_present_on_dock.rc != 0
