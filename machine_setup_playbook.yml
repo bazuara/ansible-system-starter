@@ -136,3 +136,8 @@
       git:
         repo: https://github.com/zsh-users/zsh-autosuggestions
         dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+    - name: Install tunnelblick from cask
+      homebrew_cask:
+        name: tunnelblick
+        state: present
