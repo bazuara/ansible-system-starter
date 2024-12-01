@@ -77,15 +77,6 @@
         name: google-chrome
         state: present
 
-    - name: Check if Google Chrome is already in the Dock
-      shell: dockutil --list | grep -q "Chrome.app"
-      register: chrome_present_on_dock
-      ignore_errors: true
-
-    - name: Add Google Chrome to the Dock if not present
-      shell: dockutil --add "/Applications/Google Chrome.app"
-      when: chrome_present_on_dock.rc != 0
-
     - name: Install Firefox Developer Edition from cask
       homebrew_cask:
         name: firefox@developer-edition
@@ -141,3 +132,27 @@
       homebrew_cask:
         name: tunnelblick
         state: present
+      
+    - name: Install Alfred from cask
+      homebrew_cask:
+        name: alfred
+        state: present
+
+    - name: Install macDown from cask
+      homebrew_cask:
+        name: macdown
+        state: present
+
+    - name: Install Discord from cask
+      homebrew_cask:
+        name: discord
+        state: present
+    
+    - name: Check if Discord is already in the Dock
+      shell: dockutil --list | grep -q "Discord.app"
+      register: discord_present_on_dock
+      ignore_errors: true
+
+    - name: Add Discord to the Dock if not present
+      shell: dockutil --add "/Applications/Discord.app"
+      when: discord_present_on_dock.rc != 0

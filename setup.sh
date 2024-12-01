@@ -53,6 +53,15 @@ then
 else
     echo "Alacritty config file does not exist. Creating..."
     mkdir -p ~/.config/alacritty
-    # create a symlink from current folder, dotfiles/alacritty/alacritty.toml to ~/.config/alacritty/alacritty.toml
     ln -s $(pwd)/dotfiles/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+fi
+
+# Zsh
+# Check if Zsh config file exists
+if [ -f ~/.zshrc ]
+then
+    echo "Zsh config file already exists. Skipping..."
+else
+    echo "Zsh config file does not exist. Creating..."
+    ln -s $(pwd)/dotfiles/zsh/zshrc ~/.zshrc
 fi
