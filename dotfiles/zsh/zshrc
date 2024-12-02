@@ -24,3 +24,5 @@ source $ZSH/oh-my-zsh.sh
   alias pgruby="docker run -it -v "$(pwd):/tmp"  -w "/tmp" ruby:3 sh"
   alias pgpython="docker run -it -v "$(pwd):/tmp"  -w "/tmp" python:3.10 sh"
 
+# Private Aliases
+source $HOME/.config/private_aliases.zsh

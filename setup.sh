@@ -65,3 +65,13 @@ else
     echo "Zsh config file does not exist. Creating..."
     ln -s $(pwd)/dotfiles/zsh/zshrc ~/.zshrc
 fi
+
+# Check if ~/.config/private_aliases.zsh exists
+if [ -f ~/.config/private_aliases.zsh ]
+then
+    echo "Private aliases file already exists. Skipping..."
+else
+    echo "Private aliases file does not exist. Creating..."
+    touch ~/.config/private_aliases.zsh
+    echo "# Here you can add your private aliases" >> ~/.config/private_aliases.zsh
+fi
