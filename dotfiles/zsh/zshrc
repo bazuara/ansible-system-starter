@@ -17,3 +17,10 @@ plugins=(
 
 # End
 source $ZSH/oh-my-zsh.sh
+
+# Public Aliases
+  # Playgrounds to avoid installing languages
+  alias pgnode="docker run -it -v "$(pwd):/tmp"  -w "/tmp" node:23  sh"
+  alias pgruby="docker run -it -v "$(pwd):/tmp"  -w "/tmp" ruby:3 sh"
+  alias pgpython="docker run -it -v "$(pwd):/tmp"  -w "/tmp" python:3.10 sh"
+
