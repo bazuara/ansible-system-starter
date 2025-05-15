@@ -156,3 +156,13 @@
     - name: Add Discord to the Dock if not present
       shell: dockutil --add "/Applications/Discord.app"
       when: discord_present_on_dock.rc != 0
+
+    - name: Install Real VNC Viewer from cask
+      homebrew_cask:
+        name: vnc-viewer
+        state: present
+
+    - name: Install jordanbaird-ice via Homebrew
+      homebrew:
+        name: jordanbaird-ice
+        state: present
